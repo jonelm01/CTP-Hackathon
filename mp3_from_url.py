@@ -2,6 +2,7 @@ from pytube import YouTube
 import os
 from pydub import AudioSegment
 import spleeter
+from IPython.display import Audio
 
 #NOTE: BPM detection uses WAV format, MP3 needs conversion
 def getMP3(url):
@@ -16,8 +17,7 @@ def getMP3(url):
        # print(song.title + " downloaded to MP3")
         yt = YouTube(url)
         video = yt.streams.filter(only_audio=True).first()
-        print("Enter the destination address (leave blank to save in current directory)")
-        destination = str(input(" ")) or '.'
+        destination = '.'
         out_file = video.download(output_path=destination)
         base, ext = os.path.splitext(out_file)
         new_file = base + '.mp3'
@@ -46,11 +46,9 @@ def MP3toWav(MP3_filename): #name of file without .mp3 extension
         return False
 
 def splitter(filename): #not sure how to use this yet
-    song = spleeter.Spleeter()
-    vocals, instruments = song.seperate(filename)
-
-    vocals.write("vocals.wav")
-    instruments.write("instruments.wav")
+    os.system("spleeter separate -o " + "split_songs/ " + filename + ".mp3")
+    
+#######USE CLI -> spleeter separate -o direct/ filename.mp3
 
 
 if __name__ == "__main__":
@@ -61,4 +59,8 @@ if __name__ == "__main__":
     .
     .
     """)
-    getMP3("https://www.youtube.com/watch?v=psuRGfAaju4")
+
+    splitter("Fireflies")
+
+    
+    
