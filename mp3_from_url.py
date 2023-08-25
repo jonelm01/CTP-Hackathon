@@ -61,7 +61,7 @@ def splitter(path, file):
     os.system("spleeter separate -o " + "split_songs/ " + path + ".mp3")
     os.system("mv ./split_songs/" + file + "/" + "accompaniment.wav " + "./split_songs/" + file + "/" + file + "_accompaniment.wav")
     os.system("mv ./split_songs/" + file + "/" + "vocals.wav " + "./split_songs/" + file + "/" + file + "_vocals.wav")
-    #os.system("mv vocals.wav " + filename + "_vocals.wav")
+    return ("./split_songs/" + file + "/" + file)
 #######USE CLI -> spleeter separate -o direct/ filename.mp3
 
 
@@ -76,7 +76,8 @@ def BPMest(filename):
     audio_file = librosa.load(filename)
     y, sr = audio_file
     bpm, frames = librosa.beat.beat_track(y=y, sr=sr)
-    print("Estimated bpm: " + bpm)
+    print("Estimated bpm: ")
+    print(bpm)
     
 
 #Pass the song whose speed will change, its BPM, and the BPM of the dependent song
@@ -94,9 +95,24 @@ if __name__ == "__main__":
     .
     """)
 
-    #name, base = getMP3andThumbnail("https://www.youtube.com/watch?v=NUUpIuspG5E")
-    #splitter(name, base)
-    #BPMest("Yellowman_accompaniment.wav")
+    name, base = getMP3andThumbnail(input("Enter YouTube URL:"))
+    song_name = splitter(name, base)
+
+    BPMreq = input('Get BPM? Enter "Y":')
+    if (BPMreq == "Y" or "y"):
+        BPMest(song_name + "_accompaniment.wav")
+
+    #speedMod = input('Match BPM? Enter "Y"')
+    #if (speedMod == "Y" or "y"):
+       # song = input("Accompaniment or vocals? Enter 1 or 2 respectively")
+       # if song == 1:
+        #    song_name = song_name + "_accompaniment.wav"
+        #elif song == 2:
+        #    song_name = song_name + "_vocals.wav"
+        #BPM1 = input("Enter BPM to be matched")
+        #BPM2 = input("Enter BPM to be modified")
+        #playbackSpeed(song_name, BPM1, BPM2)
+    
 
     
     
