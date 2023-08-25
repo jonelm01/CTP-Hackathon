@@ -6,7 +6,11 @@ import spleeter
 from IPython.display import Audio
 import librosa
 
-#NOTE: BPM detection uses WAV format, MP3 needs conversion
+
+################
+#TO INSTALL ALL LIBRARIES USE:
+# pip install -r requirements.txt 
+
 
 #Fetch/download .mp3 of YouTube video at provided URL
 def getMP3andThumbnail(url):
@@ -55,14 +59,12 @@ def splitter(path, file):
     print(path)
     print(file)
     os.system("spleeter separate -o " + "split_songs/ " + path + ".mp3")
-    #os.system("cd split_songs")
     os.system("mv ./split_songs/" + file + "/" + "accompaniment.wav " + "./split_songs/" + file + "/" + file + "_accompaniment.wav")
     os.system("mv ./split_songs/" + file + "/" + "vocals.wav " + "./split_songs/" + file + "/" + file + "_vocals.wav")
     #os.system("mv vocals.wav " + filename + "_vocals.wav")
 #######USE CLI -> spleeter separate -o direct/ filename.mp3
 
 
-#UNTESTED
 #Clear songs in directory on refresh, open, close, or manual refresh button
 def clearSongs():
     os.system("rm -r /split_songs")
@@ -94,7 +96,7 @@ if __name__ == "__main__":
 
     #name, base = getMP3andThumbnail("https://www.youtube.com/watch?v=NUUpIuspG5E")
     #splitter(name, base)
-    BPMest("Yellowman_accompaniment.wav")
+    #BPMest("Yellowman_accompaniment.wav")
 
     
     
