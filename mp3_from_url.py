@@ -5,16 +5,9 @@ import spleeter
 from IPython.display import Audio
 
 #NOTE: BPM detection uses WAV format, MP3 needs conversion
+#Fetch/download .mp3 of YouTube video at provided URL
 def getMP3(url):
     try:
-        #song = YouTube(url)
-        #audio = song.streams.filter(only_audio=True).first()
-       # dest = "."
-        #out_file = audio.download(output_path=dest)
-        #base, ext = os.path.splitext(out_file)
-       # new_file = base + '.mp3'
-        #os.rename(out_file, new_file)
-       # print(song.title + " downloaded to MP3")
         yt = YouTube(url)
         video = yt.streams.filter(only_audio=True).first()
         destination = '.'
@@ -45,10 +38,24 @@ def MP3toWav(MP3_filename): #name of file without .mp3 extension
         print("Unable to convert MP3 file")
         return False
 
-def splitter(filename): #not sure how to use this yet
+
+#Splits "filename" song into filename_accompaniment.wav and filename_vocals.wav
+def splitter(filename): 
     os.system("spleeter separate -o " + "split_songs/ " + filename + ".mp3")
-    
+    os.system("mv accompaniment.wav " + filename + "_accompaniment.wav")
+    os.system("mv vocals.wav " + filename + "_vocals.wav")
 #######USE CLI -> spleeter separate -o direct/ filename.mp3
+
+
+#UNTESTED
+#Clear songs in directory on refresh, opem, close, or manual refresh button
+def clearSongs():
+    os.system("rm -r /split_songs")
+
+
+def merger(song1, song2):
+    #merge 
+    return 1
 
 
 if __name__ == "__main__":
@@ -60,7 +67,7 @@ if __name__ == "__main__":
     .
     """)
 
-    splitter("Fireflies")
+    #splitter("Fireflies")
 
     
     
